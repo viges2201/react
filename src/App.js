@@ -7,7 +7,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       counter : 0,
-      arr : ["Hello", "It's React"]
+      arr : ["Hello", "It's React!","All done!"]
     };
   };
 
@@ -48,7 +48,7 @@ class App extends React.Component {
         <TodoList arr={this.state.arr}></TodoList>
         <button onClick={this.addWord}>Добавить слово в массив #{this.state.arr.length}</button>
       </div>
-      
+
 
     );
   }
