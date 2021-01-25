@@ -1,14 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import App from './App';
-import MessageField from  './components/messageField';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider } from '@material-ui/core/styles';
+import MessageField from './components/messageField';
+import theme from './theme';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <MessageField />
-  </React.StrictMode>,
+  <ThemeProvider theme={theme}>
+      <CssBaseline />
+       <MessageField />
+    </ThemeProvider>,
   document.getElementById('root')
 );
 
