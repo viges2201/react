@@ -1,12 +1,11 @@
 import React from 'react';
 import Message from './message';
-import { Button, Input } from '@material-ui/core';
+import MessageInput from './messageInput';
 export default class MessageField extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { items: [{ text: "Привет!", id:1, author: 'robot' }, { text: "Как дела?", id:2, author: 'robot' }], text: '' };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = { items: [{ text: "Привет!", id:1, author: 'robot' }, { text: "Как дела?", id:2, author: 'robot' }], text: '' }
   };
 
 
@@ -19,49 +18,26 @@ export default class MessageField extends React.Component {
     }
   };
 
-  handleChange = (e) => {
-    this.setState({ text: e.target.value });
-  };
-
-  handleSubmit = (e) => {
-    e.preventDefault();
-    if (this.state.text.length === 0) {
-      return;
-    }
-    const newItem = {
-      text: this.state.text,
-      id: Date.now(),
-      author: 'me'
-    };
+  handleAddMessage = (item) => {
     this.setState(state => ({
-      items: state.items.concat(newItem),
-      text: ''
+      items: state.items.concat(item)
     }));
   };
 
-  render(){
-    const messageField = this.state.items.map(item => (
-      <Message key= {item.id}  text = {item.text} author = {item.author}></Message>
-    ));
+  renderMessage = (message) => {
+    return (
+      <Message key= {message.id}  text = {message.text} author = {message.author}></Message>
+    )
+  }
 
-    return  <div className="layout">
-      <div className="message-field">
-        { messageField }
+  render(){
+    return (
+      <div className="layout">
+        <div className="message-field">
+          {this.state.items.map(this.renderMessage)}
+        </div>
+        <MessageInput onAddMessage = {this.handleAddMessage}></MessageInput>
       </div>
-      <form onSubmit={this.handleSubmit}>
-        <Input
-          style={ { fontSize: '22px' } }
-          onChange={this.handleChange}
-          value={this.state.text}
-          />
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          >
-          Отправить сообщение
-        </Button>
-      </form>
-    </div>
+    )
   }
 }
