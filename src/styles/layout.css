@@ -1,0 +1,17 @@
+.layout-canvas {
+  width: 80%;
+}
+
+.layout-left-side {
+    /* background: green; */
+    display: inline-block;
+    float: left;
+    width: 30%;
+}
+
+.layout-right-side {
+    /* background: red; */
+    display: inline-block;
+    float: right;
+    width: 70%
+}

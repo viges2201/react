@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import './styles/index.css';
 import { ThemeProvider } from '@material-ui/core/styles';
-import MessageField from './components/messageField';
 import theme from './theme';
+import { BrowserRouter } from 'react-router-dom';
+import Router from './components/router'
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <ThemeProvider theme={theme}>
-      <CssBaseline />
-       <MessageField />
-    </ThemeProvider>,
+  <BrowserRouter>
+    <ThemeProvider theme={theme}>
+       <Router />
+    </ThemeProvider>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
