@@ -24,7 +24,7 @@ code {
 
 .layout {
    height: 100%;
-   width: 50%;
+   width: 100%;
    margin: auto;
    display: flex;
    align-items: center;
@@ -44,3 +44,23 @@ code {
    color: gray;
    font-size: 14px;
 }
+
+.messageInput {
+  font-size: 22px;
+}
+
+.robot {
+  align-self: flex-start;
+}
+
+.me {
+    align-self: flex-end;
+}
+
+.header {
+   width: 100%;
+   margin: auto;
+   display: flex;
+}
+/* style={ { alignSelf: item.author === 'robot' ?
+  'flex-start' : 'flex-end' } } */
