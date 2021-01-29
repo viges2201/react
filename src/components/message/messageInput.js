@@ -1,8 +1,9 @@
 import {useState, useCallback} from 'react';
-import { Button, Input } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add'
+import { TextField, Fab } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-export  default function MessageInput({onAddMessage}){
+export  default function MessageInput({onAddMessage, inputRef}){
   const [value, setValue] = useState('');
 
   const handleChange = useCallback((e) => {
@@ -20,18 +21,14 @@ export  default function MessageInput({onAddMessage}){
 
   return (
     <form className = 'messageInput' onSubmit={handleSubmit}>
-      <Input
+      <TextField
         type="text"
         onChange={handleChange}
         value={value}
         />
-      <Button
-        variant="contained"
-        color="primary"
-        type="submit"
-        >
-        Отправить сообщение
-      </Button>
+      <Fab color="primary" aria-label="add">
+        <AddIcon />
+      </Fab>
     </form>
   )
 }

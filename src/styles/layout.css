@@ -3,15 +3,14 @@
 }
 
 .layout-left-side {
-    /* background: green; */
-    display: inline-block;
-    float: left;
-    width: 30%;
+  display: inline-block;
+  float: left;
+  width: 30%;
 }
 
 .layout-right-side {
-    /* background: red; */
-    display: inline-block;
-    float: right;
-    width: 70%
+  /* background: red; */
+  display: inline-block;
+  float: right;
+  width: 70%
 }

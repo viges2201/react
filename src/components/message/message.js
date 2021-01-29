@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 
 export  default function Message ({text, sender}) {
 
-  const alignSelf = sender === 'robot' ? 'robot' : 'me';
+  const alignSelf = sender === 'bot' ? 'bot' : 'me';
 
   return (
     <div  className= {`message ${alignSelf}`}>
