@@ -1,6 +1,6 @@
 import {useState, useCallback} from 'react';
-import AddIcon from '@material-ui/icons/Add'
-import { TextField, Fab } from '@material-ui/core';
+// import AddIcon from '@material-ui/icons/Add'
+import { TextField} from '@material-ui/core';
 import PropTypes from 'prop-types';
 
 export  default function MessageInput({onAddMessage, inputRef}){
@@ -26,9 +26,6 @@ export  default function MessageInput({onAddMessage, inputRef}){
         onChange={handleChange}
         value={value}
         />
-      <Fab color="primary" aria-label="add">
-        <AddIcon />
-      </Fab>
     </form>
   )
 }

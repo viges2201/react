@@ -1,74 +1,65 @@
-import {useState, useCallback, useEffect} from 'react';
+import {useCallback, useEffect} from 'react';
 import Message from './message';
 import MessageInput from './messageInput';
+import { bindActionCreators } from "redux";
+import connect from "react-redux/es/connect/connect";
 
-export default function MessageField ({chatId}) {
-
-  const [chats, setChats] = useState({
-    1: {title: 'Чат 1', messageList: [1]},
-    2: {title: 'Чат 2', messageList: [2]},
-    3: {title: 'Чат 3', messageList: []},
-  });
-
-  const [messages, setMessages] = useState({
-    1: { text: "Привет!", sender: 'bot' },
-    2: { text: "Здравствуйте!", sender: 'bot' },
-  });
+function MessageField ({chatId, chats, messages, sendMessage}) {
 
   const handleAddMessage = useCallback((message, sender='me') => {
-    const messageId = Object.keys(messages).length + 1;
-    setMessages((oldMessages) => ({...oldMessages,[messageId] : { text: message, sender}}));
-    setChats((oldChats) => ({...chats,
-      [chatId]: { ...chats[chatId],
-        messageList: [...chats[chatId]['messageList'], messageId]
-      }
+    sendMessage(message, sender)
+  },[ sendMessage]);
+
+  useEffect(()=> {
+    let timeout;
+    if (Object.values(messages)[Object.values(messages).length - 1].sender === 'me') {
+      timeout = setTimeout(() =>
+      handleAddMessage('Не приставай ко мне, я робот!', 'bot'), 1000);
     }
-  ));
-},[messages, chatId, chats]);
 
-useEffect(()=> {
-  let timeout;
-  if (Object.values(messages)[Object.values(messages).length - 1].sender === 'me') {
-    timeout = setTimeout(() =>
-    handleAddMessage('Не приставай ко мне, я робот!', 'bot'), 1000);
-  }
+    return () => {
+      clearTimeout(timeout);
+    }
+  }, [messages, handleAddMessage]);
 
-  return () => {
-    clearTimeout(timeout);
-  }
-}, [messages, handleAddMessage]);
-
-return (
-  <div className="layout">
-    <div className="message-field">
-      {chats[chatId].messageList.map((messageId, index) => (
-        <Message
-          key={ index }
-          text={ messages[messageId].text }
-          sender={ messages[messageId].sender }
-          />))}
+  return (
+    <div className="layout">
+      <div className="message-field">
+        {chats[chatId].messageList.map((messageId, index) => (
+          <Message
+            key={ messageId }
+            text={ messages[messageId].text }
+            sender={ messages[messageId].sender }
+            />))}
+          </div>
+          <MessageInput onAddMessage = {handleAddMessage}></MessageInput>
         </div>
-        <MessageInput onAddMessage = {handleAddMessage}></MessageInput>
-      </div>
-    )
-  }
+      )
+    }
 
+    const mapStateToProps = ({ chatReducer }) => ({
+       chats: chatReducer.chats,
+    });
 
-  // const  renderMessage = useCallback((chatsmessages) => {
-  //   return (
-  //     <Message key = {messages.id}  text = {messages.text} sender = {messages.sender}></Message>
-  //   )
-  // }, []);
+    const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
 
-  // useEffect(()=> {
-  //   let timeout;
-  //   if (messages[messages.length - 1].sender !== 'robot') {
-  //     timeout = setTimeout(() => {
-  //       handleAddMessage('Привет, я робот!', 'robot')
-  //     }, 1000);
-  //   }
-  //
-  //   return () => {
-  //     clearTimeout(timeout);
-  //   }
-  // }, [messages, handleAddMessage])
+    export default connect(mapStateToProps, mapDispatchToProps)(MessageField);
+
+    // const  renderMessage = useCallback((chatsmessages) => {
+    //   return (
+    //     <Message key = {messages.id}  text = {messages.text} sender = {messages.sender}></Message>
+    //   )
+    // }, []);
+
+    // useEffect(()=> {
+    //   let timeout;
+    //   if (messages[messages.length - 1].sender !== 'robot') {
+    //     timeout = setTimeout(() => {
+    //       handleAddMessage('Привет, я робот!', 'robot')
+    //     }, 1000);
+    //   }
+    //
+    //   return () => {
+    //     clearTimeout(timeout);
+    //   }
+    // }, [messages, handleAddMessage])
