@@ -1,18 +1,20 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 
-export  default function Message ({text, sender}) {
+export default class Message extends React.Component {
+   static propTypes = {
+       text: PropTypes.string.isRequired,
+       sender: PropTypes.string.isRequired,
+   };
 
-  const alignSelf = sender === 'bot' ? 'bot' : 'me';
-
-  return (
-    <div  className= {`message ${alignSelf}`}>
-      <div>{text}</div>
-      <div className="message-sender">{sender}</div>
-    </div>
-  )
-}
-
-Message.propTypes = {
-  text: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  sender: PropTypes.string.isRequired
+   render() {
+       return <div
+           className="message"
+           style={ { alignSelf: this.props.sender === 'bot' ?
+                   'flex-start' : 'flex-end' } }
+       >
+           <div>{ this.props.text }</div>
+           <div className="message-sender">{ this.props.sender }</div>
+           </div>
+   }
 }
