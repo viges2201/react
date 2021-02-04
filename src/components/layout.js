@@ -26,15 +26,6 @@ class Layout extends React.Component {
        },
    };
 
-   componentDidUpdate(prevProps, prevState) {
-       const { messages } = this.state;
-       if (Object.keys(prevState.messages).length < Object.keys(messages).length &&
-           Object.values(messages)[Object.values(messages).length - 1].sender === 'me') {
-           setTimeout(() =>
-               this.sendMessage('Не приставай ко мне, я робот!', 'bot'), 1000);
-       }
-   }
-
    sendMessage = (message, sender) => {
        const { messages } = this.state;
        const { chatId } = this.props;
