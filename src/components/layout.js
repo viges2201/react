@@ -21,8 +21,8 @@ class Layout extends React.Component {
 
    state = {
        messages: {
-           1: { text: "Привет!", sender: 'bot' },
-           2: { text: "Здравствуйте!", sender: 'bot' },
+           // 1: { text: "Привет!", sender: 'bot' },
+           // 2: { text: "Здравствуйте!", sender: 'bot' },
        },
    };
 
